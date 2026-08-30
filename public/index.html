@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LAS ESTRELLAS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&display=swap');
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#080808;color:#f5f5f5;font-family:Arial,sans-serif;display:grid;place-items:center;padding:20px;overflow:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 35%,#3b301455 0,transparent 38%),radial-gradient(circle at 15% 85%,#d4af3712 0,transparent 25%);pointer-events:none}
+.stars{position:fixed;inset:0;opacity:.5;background-image:radial-gradient(#d4af37 1px,transparent 1px);background-size:95px 95px;mask-image:linear-gradient(to bottom,transparent,#000,transparent)}
+.card{position:relative;width:min(440px,100%);padding:34px 25px 28px;border:1px solid #d4af3748;border-radius:22px;background:linear-gradient(145deg,#191919,#0d0d0d);box-shadow:0 25px 80px #000,0 0 45px #d4af3712;text-align:center}
+.crown{font-size:27px;color:#d4af37;margin-bottom:7px;text-shadow:0 0 18px #d4af3766}
+.logo{max-width:170px;max-height:95px;margin:0 auto 13px;display:none;object-fit:contain}
+h1{font-family:Cinzel,Georgia,serif;letter-spacing:5px;margin:0;color:#d4af37;font-size:31px;text-shadow:0 2px 16px #d4af3744}
+.line{width:85px;height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);margin:14px auto 17px}
+.subtitle{color:#b8b8b8;margin:0 auto 25px;line-height:1.5;font-size:15px}.buttons{display:grid;gap:12px}
+.wa{position:relative;display:block;padding:16px;border:1px solid #d4af37;border-radius:12px;background:linear-gradient(135deg,#242424,#101010);color:#f5f5f5;text-decoration:none;font-weight:700;letter-spacing:1px;box-shadow:inset 0 1px #fff1,0 7px 22px #0008;transition:.18s}
+.wa:before{content:"✦";color:#d4af37;margin-right:10px}.wa:hover{transform:translateY(-2px);box-shadow:0 10px 30px #000,0 0 18px #d4af3725}
+.note{margin-top:20px;color:#777;font-size:11px;letter-spacing:.3px}
+</style></head><body><div class="stars"></div><main class="card"><div class="crown">✦</div><img id="logo" class="logo" alt="LAS ESTRELLAS"><h1 id="title">LAS ESTRELLAS</h1><div class="line"></div><p id="subtitle" class="subtitle"></p><div id="buttons" class="buttons"></div><div class="note">Al seleccionar una opción se abrirá WhatsApp.</div></main>
+<script>
+let config,rotationIndex=0;const digits=n=>n.replace(/[^\d]/g,"");
+function render(){document.documentElement.style.setProperty("--primary",config.primaryColor);document.body.style.fontFamily=config.font;title.textContent=config.title;subtitle.textContent=config.subtitle;logo.src=config.logoUrl||"";logo.style.display=config.logoUrl?"block":"none";buttons.innerHTML="";
+config.numbers.filter(n=>n.enabled&&digits(n.number)).forEach(n=>{let a=document.createElement("a");a.className="wa";a.href="#";a.textContent=n.label||config.buttonText;a.onclick=e=>{e.preventDefault();let target=n;if(config.rotation){let active=config.numbers.filter(x=>x.enabled&&digits(x.number));if(active.length){target=active[rotationIndex%active.length];rotationIndex++}}location.href="https://wa.me/"+digits(target.number)+"?text="+encodeURIComponent(config.message||"Hola")};buttons.appendChild(a)})}
+fetch("/api/config").then(r=>r.json()).then(c=>{config=c;render()});
+</script></body></html>

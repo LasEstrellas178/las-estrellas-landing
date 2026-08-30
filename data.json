@@ -1,0 +1,7 @@
+{
+  "title":"LAS ESTRELLAS","subtitle":"Elegí una opción para continuar","buttonText":"WhatsApp",
+  "background":"#080808","cardColor":"#151515","primaryColor":"#d4af37","textColor":"#f5f5f5",
+  "secondaryTextColor":"#b8b8b8","font":"Arial, sans-serif","logoUrl":"",
+  "message":"Hola, quiero más información.","rotation":true,
+  "numbers":[{"label":"WHATSAPP 1","number":"+5490000000000","enabled":true},{"label":"WHATSAPP 2","number":"+5490000000000","enabled":true}]
+}
